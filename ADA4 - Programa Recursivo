@@ -1,0 +1,23 @@
+def factorial(n):
+    if n == 0 or n == 1:
+        return 1
+    return n * factorial(n - 1)
+
+def interactivo():
+    try:
+        num = int(input("Ingresa un número entero positivo: "))
+        if num < 0:
+            print("Por favor, ingresa un número positivo.")
+            return interactivo()
+        print(f"El factorial de {num} es {factorial(num)}")
+    except ValueError:
+        print("Entrada no válida. Debes ingresar un número entero.")
+        return interactivo()
+
+    opcion = input("¿Quieres calcular otro factorial? (s/n): ").strip().lower()
+    if opcion == 's':
+        return interactivo()
+    else:
+        print("¡Gracias por usar el programa!")
+
+interactivo()

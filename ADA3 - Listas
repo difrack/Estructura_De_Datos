@@ -1,0 +1,79 @@
+class GestionPostres:
+    def __init__(self):
+        self.postres = {}
+    
+    def agregar_postre(self, nombre, ingredientes):
+        if nombre in self.postres:
+            print(f"El postre '{nombre}' ya existe.")
+        else:
+            self.postres[nombre] = set(ingredientes)
+            print(f"Postre '{nombre}' agregado con ingredientes {ingredientes}.")
+    
+    def eliminar_postre(self, nombre):
+        if nombre in self.postres:
+            del self.postres[nombre]
+            print(f"Postre '{nombre}' eliminado.")
+        else:
+            print(f"El postre '{nombre}' no existe.")
+    
+    def imprimir_ingredientes(self, nombre):
+        if nombre in self.postres:
+            print(f"Ingredientes de '{nombre}': {', '.join(self.postres[nombre])}")
+        else:
+            print(f"El postre '{nombre}' no existe.")
+    
+    def agregar_ingredientes(self, nombre, nuevos_ingredientes):
+        if nombre in self.postres:
+            self.postres[nombre].update(nuevos_ingredientes)
+            print(f"Ingredientes {nuevos_ingredientes} agregados a '{nombre}'.")
+        else:
+            print(f"El postre '{nombre}' no existe.")
+    
+    def eliminar_ingrediente(self, nombre, ingrediente):
+        if nombre in self.postres:
+            if ingrediente in self.postres[nombre]:
+                self.postres[nombre].remove(ingrediente)
+                print(f"Ingrediente '{ingrediente}' eliminado de '{nombre}'.")
+            else:
+                print(f"El ingrediente '{ingrediente}' no está en '{nombre}'.")
+        else:
+            print(f"El postre '{nombre}' no existe.")
+    
+    def menu(self):
+        while True:
+            print("\n--- Gestión de Postres ---")
+            print("1. Agregar postre")
+            print("2. Eliminar postre")
+            print("3. Ver ingredientes de un postre")
+            print("4. Agregar ingredientes a un postre")
+            print("5. Eliminar ingrediente de un postre")
+            print("6. Salir")
+            
+            opcion = input("Seleccione una opción: ")
+            
+            if opcion == "1":
+                nombre = input("Ingrese el nombre del postre: ")
+                ingredientes = input("Ingrese los ingredientes separados por comas: ").split(",")
+                self.agregar_postre(nombre.strip(), [i.strip() for i in ingredientes])
+            elif opcion == "2":
+                nombre = input("Ingrese el nombre del postre a eliminar: ")
+                self.eliminar_postre(nombre.strip())
+            elif opcion == "3":
+                nombre = input("Ingrese el nombre del postre: ")
+                self.imprimir_ingredientes(nombre.strip())
+            elif opcion == "4":
+                nombre = input("Ingrese el nombre del postre: ")
+                ingredientes = input("Ingrese los nuevos ingredientes separados por comas: ").split(",")
+                self.agregar_ingredientes(nombre.strip(), [i.strip() for i in ingredientes])
+            elif opcion == "5":
+                nombre = input("Ingrese el nombre del postre: ")
+                ingrediente = input("Ingrese el ingrediente a eliminar: ")
+                self.eliminar_ingrediente(nombre.strip(), ingrediente.strip())
+            elif opcion == "6":
+                print("Saliendo...")
+                break
+            else:
+                print("Opción no válida. Intente de nuevo.")
+
+gestion = GestionPostres()
+gestion.menu()

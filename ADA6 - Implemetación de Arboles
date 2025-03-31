@@ -1,0 +1,83 @@
+class Nodo:
+    def __init__(self, valor):
+        self.valor = valor
+        self.izquierda = None
+        self.derecha = None
+
+class Arbol:
+    def __init__(self):
+        self.raiz = None
+
+    def insertar(self, valor):
+        if self.raiz is None:
+            self.raiz = Nodo(valor)
+        else:
+            self._insertar_recursivo(self.raiz, valor)
+
+    def _insertar_recursivo(self, nodo, valor):
+        if valor < nodo.valor:
+            if nodo.izquierda is None:
+                nodo.izquierda = Nodo(valor)
+            else:
+                self._insertar_recursivo(nodo.izquierda, valor)
+        else:
+            if nodo.derecha is None:
+                nodo.derecha = Nodo(valor)
+            else:
+                self._insertar_recursivo(nodo.derecha, valor)
+
+    def buscar(self, valor):
+        return self._buscar_recursivo(self.raiz, valor)
+
+    def _buscar_recursivo(self, nodo, valor):
+        if nodo is None or nodo.valor == valor:
+            return nodo is not None
+        if valor < nodo.valor:
+            return self._buscar_recursivo(nodo.izquierda, valor)
+        return self._buscar_recursivo(nodo.derecha, valor)
+
+    def recorrido_inorden(self):
+        elementos = []
+        self._inorden(self.raiz, elementos)
+        return elementos
+
+    def _inorden(self, nodo, elementos):
+        if nodo:
+            self._inorden(nodo.izquierda, elementos)
+            elementos.append(nodo.valor)
+            self._inorden(nodo.derecha, elementos)
+
+    def recorrido_preorden(self):
+        elementos = []
+        self._preorden(self.raiz, elementos)
+        return elementos
+
+    def _preorden(self, nodo, elementos):
+        if nodo:
+            elementos.append(nodo.valor)
+            self._preorden(nodo.izquierda, elementos)
+            self._preorden(nodo.derecha, elementos)
+
+    def recorrido_postorden(self):
+        elementos = []
+        self._postorden(self.raiz, elementos)
+        return elementos
+
+    def _postorden(self, nodo, elementos):
+        if nodo:
+            self._postorden(nodo.izquierda, elementos)
+            self._postorden(nodo.derecha, elementos)
+            elementos.append(nodo.valor)
+
+if __name__ == "__main__":
+    arbol = Arbol()
+    valores = [10, 5, 15, 3, 7, 12, 18]
+    for v in valores:
+        arbol.insertar(v)
+    
+    print("Recorrido inorden:", arbol.recorrido_inorden())
+    print("Recorrido preorden:", arbol.recorrido_preorden())
+    print("Recorrido postorden:", arbol.recorrido_postorden())
+    
+    print("Buscar 7:", arbol.buscar(7))  
+    print("Buscar 20:", arbol.buscar(20)) 

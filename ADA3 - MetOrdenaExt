@@ -1,0 +1,54 @@
+"""---Intercalación---"""
+def intercalacion(lista1, lista2):
+    resultado = []
+    i = j = 0
+    while i < len(lista1) and j < len(lista2):
+        if lista1[i] < lista2[j]:
+            resultado.append(lista1[i])
+            i += 1
+        else:
+            resultado.append(lista2[j])
+            j += 1
+    resultado.extend(lista1[i:])
+    resultado.extend(lista2[j:])
+    return resultado
+
+lista1 = [2, 4, 6, 8]
+lista2 = [1, 3, 5, 7]
+print("Intercalación:", intercalacion(lista1, lista2))
+
+
+"""---Mezcla Directa---"""
+def mezcla_directa(lista):
+    if len(lista) <= 1:
+        return lista
+    medio = len(lista) // 2
+    izquierda = mezcla_directa(lista[:medio])
+    derecha = mezcla_directa(lista[medio:])
+    return intercalacion(izquierda, derecha)
+
+lista = [38, 27, 43, 3, 9, 82, 10]
+print("Mezcla Directa:", mezcla_directa(lista))
+
+
+"""---Mezcla Equilibrada---"""
+def mezcla_equilibrada(lista):
+    def dividir_en_archivos(lista):
+        return [[x] for x in lista]
+
+    def fusionar_pares(archivos):
+        nuevos = []
+        for i in range(0, len(archivos), 2):
+            if i + 1 < len(archivos):
+                nuevos.append(intercalacion(archivos[i], archivos[i + 1]))
+            else:
+                nuevos.append(archivos[i])
+        return nuevos
+
+    archivos = dividir_en_archivos(lista)
+    while len(archivos) > 1:
+        archivos = fusionar_pares(archivos)
+    return archivos[0]
+
+lista = [12, 4, 5, 7, 1, 3, 9, 2]
+print("Mezcla Equilibrada:", mezcla_equilibrada(lista))

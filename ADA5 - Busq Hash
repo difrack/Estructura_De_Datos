@@ -1,0 +1,28 @@
+#Ejemplo 1 
+diccionario = {
+    "Python": "Lenguaje de programación de alto nivel.",
+    "Hash": "Función que convierte datos en un valor de longitud fija.",
+    "Algoritmo": "Conjunto de pasos para resolver un problema.",
+    "Variable": "Espacio que almacena un valor que puede cambiar."
+}
+
+palabra = input("Introduce una palabra para buscar su definición: ")
+
+if palabra in diccionario:
+    print(f"Definición de {palabra}: {diccionario[palabra]}")
+else:
+    print("La palabra no está en el diccionario.")
+
+#Ejemplo 2
+usuarios = {
+    "ana123": "ana@gmail.com",
+    "juan456": "juan@hotmail.com",
+    "sofia789": "sofia@yahoo.com"
+}
+
+usuario = input("Introduce tu nombre de usuario: ")
+
+if usuario in usuarios:
+    print(f"Usuario encontrado. Correo: {usuarios[usuario]}")
+else:
+    print("Usuario no registrado.")

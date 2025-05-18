@@ -1,0 +1,43 @@
+#Secuencial 
+def busqueda_secuencial(lista, objetivo):
+    for i in range(len(lista)):
+        if lista[i] == objetivo:
+            return i 
+    return -1 
+
+numeros = [12, 4, 56, 17, 8, 99, 23]
+buscado = 17
+
+resultado = busqueda_secuencial(numeros, buscado)
+
+if resultado != -1:
+    print(f"Número {buscado} encontrado en la posición {resultado}.")
+else:
+    print(f"Número {buscado} no encontrado.")
+
+#Binario
+def busqueda_binaria(lista, objetivo):
+    inicio = 0
+    fin = len(lista) - 1
+
+    while inicio <= fin:
+        medio = (inicio + fin) // 2
+        if lista[medio] == objetivo:
+            return medio
+        elif lista[medio] < objetivo:
+            inicio = medio + 1
+        else:
+            fin = medio - 1
+
+    return -1 
+
+numeros_ordenados = [3, 8, 15, 23, 42, 56, 78, 91]
+buscado = 42
+
+resultado = busqueda_binaria(numeros_ordenados, buscado)
+
+if resultado != -1:
+    print(f"Número {buscado} encontrado en la posición {resultado}.")
+else:
+    print(f"Número {buscado} no encontrado.")
+
